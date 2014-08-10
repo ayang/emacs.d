@@ -45,9 +45,9 @@
 			 smex
 			 solarized-theme
 			 undo-tree
-       w3m
+			 w3m
 			 web-mode
-       wrap-region
+			 wrap-region
 			 writegood-mode
 			 yaml-mode
 			 zenburn-theme)
@@ -65,18 +65,22 @@
     (when (not (package-installed-p pkg))
       (package-install pkg))))
 
+;; Splash Screen
 (setq inhibit-splash-screen t
       initial-scratch-message nil
       initial-major-mode 'org-mode)
 
+;; Scrollbar, tool bar, menu bar
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 ;; (menu-bar-mode -1)
 
+;; Marking text
 (delete-selection-mode t)
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
 
+;; Display text
 (when window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
 
@@ -84,11 +88,14 @@
 (when (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
 
+;; Indent
 (setq tab-width 2
       indent-tabs-mode nil)
 
+;; Backup files
 (setq make-backup-files nil)
 
+;; Short yes and no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Insert newline like vim's o and O
@@ -108,9 +115,11 @@
 (global-set-key (kbd "<C-return>") 'newline-below)
 (global-set-key (kbd "<C-S-return>") 'newline-above)
 
-
+;; Line number display
 (setq prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
+
+;; Key binding
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
@@ -135,11 +144,13 @@
    try-complete-lisp-symbol) ;; Try to complete word as an Emacs Lisp symbol.
  )
 
+;; Misk
 (setq echo-keystrokes 0.1
       use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
 
+;; Vendor directory
 (defvar ayang/vendor-dir (expand-file-name "vendor" user-emacs-directory))
 (add-to-list 'load-path ayang/vendor-dir)
 
@@ -147,6 +158,9 @@
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                 Org Mode Settings                                                    ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq org-log-done t
       org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE"))
       org-todo-keyword-faces '(("INPROGRESS" . (:foreground "blue" :weight bold))))
@@ -157,6 +171,7 @@
           (lambda ()
             (writegood-mode)))
 
+;; org-agenda
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-show-log t
       org-agenda-todo-ignore-scheduled t
@@ -164,6 +179,7 @@
 (setq org-agenda-files (list "~/Dropbox/org/personal.org"
                              "~/Dropbox/org/groupon.org"))
 
+;; org-habit
 (require 'org)
 (require 'org-install)
 (require 'org-habit)
@@ -174,6 +190,7 @@
       org-habit-show-habits-only-for-today t
       org-habit-show-all-today t)
 
+;; org-babel
 (require 'ob)
 
 (org-babel-do-load-languages
@@ -206,6 +223,7 @@
                                             (error nil)))
           'append)
 
+;; org-abbrev
 (add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
 
 (define-skeleton skel-org-block-elisp
@@ -228,31 +246,33 @@
 
 (define-abbrev org-mode-abbrev-table "sheader" "" 'skel-header-block)
 
-(setq org-ditaa-jar-path "~/.emacs.d/vendor/ditaa0_9.jar")
-
-(setq org-plantuml-jar-path "~/.emacs.d/vendor/plantuml.jar")
-
+;; Utilities
+;; deft
 (setq deft-directory "~/Dropbox/deft")
 (setq deft-use-filename-as-title t)
 (setq deft-extension "org")
 (setq deft-text-mode 'org-mode)
 
+;; Smex
 (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
+;; Ido
 (ido-mode t)
 (setq ido-enable-flex-matching t
       ido-use-virtual-buffers t)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; other settings
 (setq column-number-mode t)
 
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
+;; autopair-mode
 (require 'autopair)
 
 ;; ggtags
@@ -271,16 +291,12 @@
 (global-set-key (kbd "C-c C-<") 'mc/unmark-previous-like-this)
 (global-set-key (kbd "C-c C-m") 'mc/mark-all-like-this)
 
-;; jedi
-(autoload 'jedi:setup "jedi" nil t)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:setup-keys t)
-(setq jedi:complete-on-dot t)
-
 ;; git-gutter
 (global-git-gutter-mode +1)
+
 ;; projectile
 (projectile-global-mode)
+
 ;; wrapregion
 (wrap-region-mode t)
 
@@ -288,6 +304,7 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
+;; Power lisp
 (setq lisp-modes '(lisp-mode
                    emacs-lisp-mode
                    common-lisp-mode
@@ -312,9 +329,11 @@
 (setq inferior-lisp-program "clisp")
 (setq scheme-program-name "racket")
 
+;; auto-complete
 (require 'auto-complete-config)
 (ac-config-default)
 
+;; Indentation and buffer cleanup
 (defun untabify-buffer ()
   (interactive)
   (untabify (point-min) (point-max)))
@@ -341,14 +360,29 @@
 
 (setq-default show-trailing-whitespace t)
 
+;; flyspell
 (setq flyspell-issue-welcome-flag nil)
 (if (eq system-type 'darwin)
     (setq-default ispell-program-name "/usr/local/bin/aspell")
   (setq-default ispell-program-name "/usr/bin/aspell"))
 (setq-default ispell-list-command "list")
 
-(add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Language hooks                                                                ;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; web mode
+(add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+
+;; python
+;; jedi
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)
+(setq jedi:complete-on-dot t)
+
+;; ruby
 (add-hook 'ruby-mode-hook
           (lambda ()
             (autopair-mode)))
@@ -363,9 +397,11 @@
 
 (rvm-use-default)
 
+;; yaml
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
+;; coffescript
 (defun coffee-custom ()
   "coffee-mode-hook"
   (make-local-variable 'tab-width)
@@ -373,12 +409,14 @@
 
 (add-hook 'coffee-mode-hook 'coffee-custom)
 
+;; javascript
 (defun js-custom ()
   "js-mode-hook"
   (setq js-indent-level 2))
 
 (add-hook 'js-mode-hook 'js-custom)
 
+;; markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
 (add-hook 'markdown-mode-hook
@@ -389,25 +427,8 @@
 (setq markdown-command "pandoc --smart -f markdown -t html")
 (setq markdown-css-path (expand-file-name "markdown.css" ayang/vendor-dir))
 
-(define-derived-mode cpsa-mode scheme-mode
-  (setq mode-name "CPSA")
-  (setq cpsa-keywords '("defmacro" "defprotocol" "defrole" "defskeleton" "defstrand"))
-  (setq cpsa-functions '("cat" "hash" "enc" "string" "ltk" "privk" "pubk" "invk" "send" "recv"  "non-orig" "uniq-orig" "trace" "vars"))
-  (setq cpsa-types '("skey" "akey" "name" "text"))
-  (setq cpsa-keywords-regexp (regexp-opt cpsa-keywords 'words))
-  (setq cpsa-functions-regexp (regexp-opt cpsa-functions 'words))
-  (setq cpsa-types-regexp (regexp-opt cpsa-types 'words))
-  (setq cpsa-font-lock-keywords
-        `(
-          (,cpsa-keywords-regexp . font-lock-keyword-face)
-          (,cpsa-functions-regexp . font-lock-function-name-face)
-          (,cpsa-types-regexp . font-lock-type-face)))
-  (setq font-lock-defaults '((cpsa-font-lock-keywords))))
-
-(add-to-list 'auto-mode-alist '("\\.cpsa$" . cpsa-mode))
-
 (if window-system
-    (load-theme 'solarized-dark t)
+    (load-theme 'solarized-light t)
   (load-theme 'wombat t))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
