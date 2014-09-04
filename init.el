@@ -19,6 +19,7 @@
 			 autopair
 			 deft
 			 flycheck
+			 ggtags
 			 git-gutter
 			 gist
 			 go-mode
