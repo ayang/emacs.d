@@ -120,10 +120,19 @@
 (setq prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
 
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)))
+
 ;; Key binding
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-;") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -287,9 +296,7 @@
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C->") 'mc/unmark-next-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/unmark-previous-like-this)
 (global-set-key (kbd "C-c C-m") 'mc/mark-all-like-this)
 
 ;; git-gutter
@@ -373,9 +380,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; web mode
+(add-to-list 'auto-mode-alist '("\\.html" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
+  (setq web-mode-style-padding 0)
+  (setq web-mode-script-padding 0)
+)
+(add-hook 'web-mode-hook  'my-web-mode-hook)
 ;; python
 ;; jedi
 (autoload 'jedi:setup "jedi" nil t)
