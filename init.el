@@ -3,6 +3,7 @@
 (require 'ob-tangle)
 
 (setenv "PATH" (concat "/usr/local/bin:/Users/ayang/.cabal/bin:" (getenv "PATH")))
+(setq exec-path (append exec-path '("/usr/local/bin")))
 (require 'cl)
 
 (load "package")
@@ -155,6 +156,8 @@
    try-complete-lisp-symbol-partially ;; Try to complete as an Emacs Lisp symbol, as many characters as unique.
    try-complete-lisp-symbol) ;; Try to complete word as an Emacs Lisp symbol.
  )
+(setq-local hippie-expand-try-functions-list
+            (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
 
 ;; Misk
 (setq echo-keystrokes 0.1
@@ -289,10 +292,10 @@
 
 ;; ggtags
 (add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-	      ggtags-mode 1)))
-(add-hook 'dired-mode-hook 'ggtags-mode)
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1))))
+;; (add-hook 'dired-mode-hook 'ggtags-mode)
 
 ;; multiple-cursors
 (require 'multiple-cursors)
