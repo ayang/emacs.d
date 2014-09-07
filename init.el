@@ -90,8 +90,10 @@
   (toggle-indicate-empty-lines))
 
 ;; Indent
-(setq tab-width 2
-      indent-tabs-mode nil)
+(setq-default c-basic-offset 4
+			  cperl-indent-level 4
+			  tab-width 4
+			  indent-tabs-mode t)
 
 ;; Backup files
 (setq make-backup-files nil)
