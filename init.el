@@ -19,6 +19,8 @@
 			 auto-complete
 			 autopair
 			 deft
+			 flx
+			 flx-ido
 			 flycheck
 			 ggtags
 			 git-gutter
@@ -275,11 +277,16 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;; Ido
+(require 'flx-ido)
 (ido-mode t)
+(flx-ido-mode t)
 (setq ido-enable-flex-matching t
       ido-use-virtual-buffers t)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
 
 ;; other settings
 (setq column-number-mode t)
@@ -404,6 +411,7 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:setup-keys t)
 (setq jedi:complete-on-dot t)
+(setq python-shell-interpreter "ipython")
 
 ;; ruby
 (add-hook 'ruby-mode-hook
@@ -451,14 +459,14 @@
 (setq markdown-css-path (expand-file-name "markdown.css" ayang/vendor-dir))
 
 (if window-system
-    (load-theme 'solarized-light t)
+    (load-theme 'deeper-blue t)
   (load-theme 'wombat t))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "146d24de1bb61ddfa64062c29b5ff57065552a7c4019bee5d869e938782dfc2a" default))))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
