@@ -16,45 +16,45 @@
 (setq package-archive-enable-alist '(("melpa" deft magit)))
 
 (defvar ayang/packages '(ac-slime
-			 auto-complete
-			 autopair
-			 deft
-			 flx
-			 flx-ido
-			 flycheck
-			 ggtags
-			 git-gutter
-			 gist
-			 go-mode
-			 graphviz-dot-mode
-			 haml-mode
-			 haskell-mode
-			 htmlize
-			 jedi
-			 magit
-			 markdown-mode
-			 marmalade
-			 multiple-cursors
-			 nodejs-repl
-			 nrepl
-			 o-blog
-			 org
-			 paredit
-			 php-mode
-			 projectile
-			 python-mode
-			 restclient
-			 ruby-mode
-			 rvm
-			 smex
-			 solarized-theme
-			 undo-tree
-			 w3m
-			 web-mode
-			 wrap-region
-			 writegood-mode
-			 yaml-mode
-			 zenburn-theme)
+                         auto-complete
+                         autopair
+                         deft
+                         flx
+                         flx-ido
+                         flycheck
+                         ggtags
+                         git-gutter
+                         gist
+                         go-mode
+                         graphviz-dot-mode
+                         haml-mode
+                         haskell-mode
+                         htmlize
+                         jedi
+                         magit
+                         markdown-mode
+                         marmalade
+                         multiple-cursors
+                         nodejs-repl
+                         nrepl
+                         o-blog
+                         org
+                         paredit
+                         php-mode
+                         projectile
+                         python-mode
+                         restclient
+                         ruby-mode
+                         rvm
+                         smex
+                         solarized-theme
+                         undo-tree
+                         w3m
+                         web-mode
+                         wrap-region
+                         writegood-mode
+                         yaml-mode
+                         zenburn-theme)
   "Default packages")
 
 (defun ayang/packages-installed-p ()
@@ -94,9 +94,9 @@
 
 ;; Indent
 (setq-default c-basic-offset 4
-			  cperl-indent-level 4
-			  tab-width 4
-			  indent-tabs-mode t)
+              cperl-indent-level 4
+              tab-width 4
+              indent-tabs-mode t)
 
 ;; Backup files
 (setq make-backup-files nil)
@@ -126,13 +126,13 @@
 (add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
 
 (defun comment-or-uncomment-region-or-line ()
-    "Comments or uncomments the region or the current line if there's no active region."
-    (interactive)
-    (let (beg end)
-        (if (region-active-p)
-            (setq beg (region-beginning) end (region-end))
-            (setq beg (line-beginning-position) end (line-end-position)))
-        (comment-or-uncomment-region beg end)))
+  "Comments or uncomments the region or the current line if there's no active region."
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+        (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position)))
+    (comment-or-uncomment-region beg end)))
 
 ;; Key binding
 (global-set-key (kbd "C-c w") 'whitespace-mode)
@@ -403,7 +403,7 @@
   (setq web-mode-code-indent-offset 4)
   (setq web-mode-style-padding 0)
   (setq web-mode-script-padding 0)
-)
+  )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 ;; python
 ;; jedi
@@ -466,7 +466,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
