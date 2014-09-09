@@ -19,8 +19,6 @@
                          auto-complete
                          autopair
                          deft
-                         flx
-                         flx-ido
                          flycheck
                          ggtags
                          git-gutter
@@ -277,16 +275,11 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;; Ido
-(require 'flx-ido)
 (ido-mode t)
-(flx-ido-mode t)
 (setq ido-enable-flex-matching t
       ido-use-virtual-buffers t)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;; disable ido faces to see flx highlights.
-(setq ido-use-faces nil)
 
 ;; other settings
 (setq column-number-mode t)
