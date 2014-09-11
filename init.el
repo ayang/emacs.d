@@ -191,8 +191,8 @@
 (setq org-agenda-show-log t
       org-agenda-todo-ignore-scheduled t
       org-agenda-todo-ignore-deadlines t)
-(setq org-agenda-files (list "~/Dropbox/org/personal.org"
-                             "~/Dropbox/org/groupon.org"))
+(setq org-agenda-files (list "~/Dropbox/Orgs/personal.org"
+                             "~/Dropbox/Orgs/groupon.org"))
 
 ;; org-habit
 (require 'org)
@@ -214,7 +214,8 @@
    (ditaa . t)
    (plantuml . t)
    (dot . t)
-   (ruby . t)))
+   (ruby . t)
+   (python . t)))
 
 (add-to-list 'org-src-lang-modes (quote ("dot". graphviz-dot)))
 (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
