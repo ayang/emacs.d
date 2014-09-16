@@ -175,6 +175,9 @@
       visible-bell t)
 (show-paren-mode t)
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 ;; Vendor directory
 (defvar ayang/vendor-dir (expand-file-name "vendor" user-emacs-directory))
 (add-to-list 'load-path ayang/vendor-dir)
