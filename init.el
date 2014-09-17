@@ -324,6 +324,7 @@
 
 ;; projectile
 (projectile-global-mode)
+(global-set-key (kbd "C-M-p") 'projectile-find-file)
 
 ;; wrapregion
 (wrap-region-mode t)
