@@ -152,6 +152,7 @@
 (global-set-key (kbd "C-c C-k") 'compile)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
+(global-set-key (kbd "C-x c") 'desktop-change-dir)
 
 (setq
  hippie-expand-try-functions-list
