@@ -73,8 +73,6 @@
       initial-major-mode 'org-mode)
 
 ;; Desktop
-(require 'desktop)
-(desktop-save-mode 1)
 (defun my-desktop-save ()
   (interactive)
   ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
@@ -83,9 +81,9 @@
 (add-hook 'auto-save-hook 'my-desktop-save)
 
 ;; Scrollbar, tool bar, menu bar
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-;; (menu-bar-mode -1)
+(when window-system
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1))
 
 ;; Marking text
 (delete-selection-mode t)
