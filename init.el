@@ -76,8 +76,9 @@
 (defun my-desktop-save ()
   (interactive)
   ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
-  (if (eq (desktop-owner) (emacs-pid))
-      (desktop-save desktop-dirname)))
+  (if desktop-save-mode
+	  (if (eq (desktop-owner) (emacs-pid))
+		  (desktop-save desktop-dirname))))
 (add-hook 'auto-save-hook 'my-desktop-save)
 
 ;; Scrollbar, tool bar, menu bar
@@ -463,6 +464,25 @@
   (setq js-indent-level 2))
 
 (add-hook 'js-mode-hook 'js-custom)
+
+;; haskell
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+
+;; hslint on the command line only likes this indentation mode;
+;; alternatives commented out below.
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+
+(custom-set-variables
+  '(haskell-process-suggest-remove-import-lines t)
+  '(haskell-process-auto-import-loaded-modules t)
+  '(haskell-process-log t))
+
+;; Ignore compiled Haskell files in filename completions
+(add-to-list 'completion-ignored-extensions ".hi")
 
 ;; markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
