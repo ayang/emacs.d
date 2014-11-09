@@ -360,6 +360,47 @@
 ;; auto-complete
 (require 'auto-complete-config)
 (ac-config-default)
+(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+
+;; Semantic
+(require 'cc-mode)
+(require 'semantic)
+
+(global-semantic-idle-scheduler-mode t)
+(global-semantic-idle-completions-mode t)
+(global-semantic-decoration-mode t)
+(global-semantic-highlight-func-mode t)
+(global-semantic-show-unmatched-syntax-mode t)
+(semantic-add-system-include "/usr/local/include")
+
+(defun my-cedet-hook ()
+  ;; (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
+  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+  (local-set-key "\C-cq" 'semantic-ia-show-doc)
+  (local-set-key "\C-cs" 'semantic-ia-show-summary)
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+  (local-set-key "\C-c+" 'semantic-tag-folding-show-block)
+  (local-set-key "\C-c-" 'semantic-tag-folding-fold-block)
+  (local-set-key "\C-c\C-c+" 'semantic-tag-folding-show-all)
+  (local-set-key "\C-c\C-c-" 'semantic-tag-folding-fold-all)
+  )
+(add-hook 'c-mode-common-hook 'my-cedet-hook)
+
+;; gnu global support
+(semanticdb-enable-gnu-global-databases 'c-mode)
+(semanticdb-enable-gnu-global-databases 'c++-mode)
+
+;; CC-mode
+;; (add-hook 'c-mode-common-hook
+;; 		  (lambda ()
+;; 			(setq ac-sources (append '(ac-source-semantic) ac-sources))
+;; 			(semantic-mode t)
+;; 			))
+(setq ac-sources (append '(ac-source-semantic) ac-sources))
+(semantic-mode t)
 
 ;; Indentation and buffer cleanup
 (defun untabify-buffer ()
