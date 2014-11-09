@@ -371,6 +371,8 @@
 (global-semantic-decoration-mode t)
 (global-semantic-highlight-func-mode t)
 (global-semantic-show-unmatched-syntax-mode t)
+(global-semantic-stickyfunc-mode t)
+(global-semanticdb-minor-mode t)
 (semantic-add-system-include "/usr/local/include")
 
 (defun my-cedet-hook ()
